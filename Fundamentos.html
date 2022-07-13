@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos</title>
+</head>
+<body>
+    <h1>Fundamentos JavaScript</h1>
+     <h2>Variables</h2>
+     <div class="Fundamentos">
+         <!-- una variable en un lugar en la memoria para almecenar datos 
+    
+         como se declara una variable
+    
+         inicialmente se usa la palabra resevada var ejemplo-->
+         <script>
+          var hola= "Hola Mundo"
+
+          /* lo llevamos a la consola por medio de */
+          console.log(hola)
+          </script>
+    
+          <!-- las variables tinene un ambito de existencia
+          en los ambitos de bloque ya no se usa var se usa LET   
+   
+          NOTA: NO USAR VAR-->
+   
+          <!-- CONST se usa cuando se tengan variables que no vayan a cambiar su valor durante el flujo de la aplicacion
+  
+          cuando se usa con datos compuestos (arreglos, arrays, funciones, clases) si permite cambiar o agregar valores -->
+     </div>
+
+     <div class="Datos primitivos">
+         <h1>Datos primitivos</h1>
+         <!-- STRING (CADENA DE TEXTO)
+         -->
+         <script>
+             let nombre = "Luisa";
+             let apellido = "Alarcon";
+             let lorem= "lorem fsdfdsf fsdfsdf dfgdg fwadsad wsdasd awdas adsads efdfsf"
+
+             console.log(nombre, apellido);
+             console.log(nombre.length,
+             apellido.length);
+             console.log(nombre.toUpperCase,
+             apellido.toLowerCase,
+             lorem.includes("lorem"),
+             lorem.trim(),
+             lorem.split(" "),
+             lorem.split(",")
+             );
+         </script>
+
+         <!-- La propiedad length sirve para ver la longitud de caracteres de la variable propuesta 
+        
+        
+         por ejemplo, si se quiere forzar al usuario a usar solo mayuscula o minuscula se usan los metodos (acciones) .toUpperCase (mayuscula) .toLowerCase (minuscula),
+        
+         si se desea buscar algo se usa el metodo INCLUDES
+        
+         si se desea quitar espacios en blanco que aparecen al principo y al final de una cadena se una TRIM
+        
+         se puede convertir una cadena a un arrgelo por medio del metodo SPLIT por medio de un separador
+        
+         
+         CARACTERISTICAS DE LAS CADENAS DE TEXTO 
+         
+         CONCATENACION 
+
+         unir cadenas de texto, se utiliza el simbolo de la suma
+         -->
+
+         <script>
+             let nombre = "Luisa";
+             let apellido = "Alarcon";
+
+             let saludo = "Hola, mi nombre es" + nombre + " " + apellido
+
+             console.log(saludo);
+
+         </script>
+
+
+         <!-- para hacer este proceso mas corto se usa la INTERPOLACION DE VARIABLES para esto se hace el uso de la caracteristica TEMPLATE STRING -->
+
+         <script>
+            let nombre = "Luisa";
+            let apellido = "Alarcon";
+
+            let saludo2 = `Hola mi nombre es ${nombre} ${apellido}`
+
+            console.log(saludo2);
+
+            /* los template string tambien permiten el salto de linea, cosa que no permite las comillas dobles o simples */
+            
+        </script>
+
+        <!-- NUMEROS------------------ -->
+        <script>
+            let a= 2
+            let b= new Number(1)
+            let c = 7.19
+            let d= "5.6"
+
+            console.log(a,b);
+            console.log(c.toFixed(1));
+            console.log(c.toFixed(5));console.log(parseInt(c));
+            console.log(typeof c, typeof d);
+            console.log(c + parseInt(d));
+            console.log(c + parseFloat(d));
+
+            /* El metodo toFixed dice cuantos numeros decimales va a tener el valor numerico
+            
+            el metodo parseInt de un numero devuelve solo la parte entera
+            
+            el metodo typeof nos indica que tipo de dato es el valor indicado 
+            
+            el metodo parseFloat tiene en cuenta los flotantes*/
+        </script>
+
+
+        <!-- BOOLEANOS --------------- -->
+        <script>
+            let verdadero = true;
+            let falso = false;
+
+            console.log(verdadero, falso);
+
+            console.log(Boolean(0));
+            console.log(Boolean(-7));
+            console.log(Boolean(""));
+            console.log(Boolean(" "));
+        </script>         
+
+        <!-- hay valores que no son ni falsos ni verdaderos pero puenden tender a ser alguno 
+        
+        ej: 
+            console.log(Boolean(0)); tiende a ser falso
+
+            console.log(Boolean(-7));
+            tiende a ser positivo
+
+            console.log(Boolean(""));
+            tiende a ser falso
+
+            console.log(Boolean(" "));
+            tiende a ser positivo 
+        -->
+
+        
+        <!--NULL, UNDEFINED, NAN
+        
+        son casos muy particulares de javascript
+    
+        undefined y null representaran una variable ausente o que no tienen valor, la DIFERENCIA es que undefined es una variable que aun no ha sido inicializada (es una valor asigando por javascript cuando detecta que no tiene valor) y null es un valor asignado manualmente por el programador
+         -->
+
+         <!-- NAN Not A Number
+            puede salir por ejemplo cuand se quieren hacer operaciones aritmeticas con datos no numericos
+        -->
+
+
+        <script>
+            /* undefined */
+            let undefined;
+            console.log(undefined);
+
+            /* null */
+            let nulo = null;
+            console.log(nulo);
+
+            /* NAN */
+            let noEsUnNumero = "Hola" + 3.7;
+            console.log(noEsUnNumero);
+        </script>
+     </div>
+
+
+     <div class="DATOS COMPUESTOS">
+         <h1>DATOS COMPUESTOS</h1>
+
+         <H1>FUNCIONES</H1>
+
+         <!-- un bloque de codifo que tiene su propio contenido  que se declarara una vez y se podra usar tantas veces como sea necesario,
+         puede o no recibir/devolver valores.
+        
+         hay funciones declaradas  y funciones expresadas
+        
+         FUNCION DECLARADA-->
+
+         <script>
+             function estoEsUnaFuncion() {
+                 console.log("uno");
+                 console.log("dos");
+                 console.log("tres");
+             }
+             /* para que la funcion actue es necesario invocarla
+             invocacion de funcion */
+
+             estoEsUnaFuncion();
+
+             function unaFuncionQueDevuelveValor(){
+
+               /* cuando una funcio devuelve valor es necesario usar una palabra reservada llamada return */  
+
+               console.log("uno");
+               console.log("dos");
+               console.log("tres");
+
+               return "La funcion ha retonado una cadena de texto"
+             }
+
+             let valorDeLaFuncion= unaFuncionQueDevuelveValor()
+
+             console.log(valorDeLaFuncion);
+
+             function unaFuncionRecibeParametros( nombre, edad){
+                console.log(`Hola Mi nombres es ${nombre} y tengo ${edad} años`)
+             }
+
+             unaFuncionRecibeParametros(Muñeca, 6);
+
+             /* tambien se pueden dar valores por defecto a los parametros de una funcion */
+
+             function unaFuncionRecibeParametros( nombre = "Desconocido", edad = 0){
+                console.log(`Hola Mi nombres es ${nombre} y tengo ${edad} años`)
+             }
+
+             unaFuncionRecibeParametros();
+
+             /* funciones declaradas vs funciones expresadas */
+
+             funcionDeclarada()
+
+             function funcionDeclarada(){
+                 console.log("Esta es una funcion declarada, puede invocarse en culquier parte de nuestro codigo, incluso antes de que la funcion sea declarada")
+             }
+
+             funcionDeclarada()
+
+             /* podemos crear una variable de una funcion,
+             
+             en este caso usamos const porque el valor de la funcion no va a cambiar y no es necesario nombrarla a esto se le llama FUNCION ANONIMA*/
+
+             const funcionExpresada = function(){
+                console.log("esto es una funcion expresada, es decir, una funcion que se ha asignado como valor a una variable, si invocamos esta funcion antes de su definicion JS nos dira... que no se puede acceder a la funcion expresada antes de su inicializcion o declaracion")
+             }
+
+             /* esa seria la diferencia entre declarar una funcion como funcion declarada y crear una funcion como funcion expresada (asignarsela a una variable) 
+             
+             
+             se considera BUENA PRACTICA delarar las funciones antes de ejecutar su invocacion
+             
+             generalmente se usa mas la funcion expresada*/
+         </script>
+     </div>
+
+     <div class="ARREGLOS">
+         <h1>ARREGLOS (coleccion de elementos de diferente tipo)</h1>
+         <script>
+             /* hay diferentes aneras de declarar arreglos, 
+             
+             aqui podemos agregar const porque mientras un arreglo no deje de ser un arreglo (asi tenga cambios en sus posiciones) aunque ambien se puede con let, esto depende del programador
+             
+             los elementos de los arreglos empiezan a contarse desde 0 */
+
+             const arreglo = [];
+             const b = [1, true, "Hola", ["A,B,C"]];
+             console.log(arreglo);
+             console.log(b);
+
+             /* acceder a un valor especifico del arreglo 
+             
+             en este caso "Hola"*/
+
+             console.log(b[2]);
+
+             /* acceder a una valor del arreglo hijo detro del arreglo padre: letra C */
+
+             console.log(b[3][2]);
+
+             /* otra manera de crear un arreglo */
+
+             const c= Array.of("A","B","C",1,2,3);
+
+             console.log(c)
+
+             /* un metodo que permite inicializar un arreglo y asignarle a todas sus posiciones el mismo valor */
+             const d = Array(100).fill(false);
+             console.log(d);
+
+
+             /* metodos o propiedades */
+
+             /* Longitud */
+             console.log(b.length);
+
+             /* Ingresar nuevo valor al final del arreglo */
+             const colores = ["rojo","verde","azul"]
+
+             colores.push("Negro");
+             console.log(colores);
+
+             /* Quita el ultimo valor del arreglo */
+             colores.pop("Negro");
+             console.log(colores);
+
+             /* permite ejecutar una funcion por cada elemento que tenga el arreglo
+             
+             con el metodo foreach se puede recorres el valor con el primer parametro que suele ser (el o element) y el segundo paametro que es  (i o index (indice) que posicion ocupa el elemento dentro de las posiciones del arreglo padre )*/
+
+             colores.forEach(function(el, index){
+                 cosole.log(`<li id="${index}">${el}</li>`);
+             });
+              /* respuesta 
+              <li id="0">Rojo</li>
+              <li id="1">Verde</li>
+              <li id="2">Azul</li>
+               */
+
+         </script>
+     </div>
+
+     <div class="OBJETOS">
+         <h1>OBJETOS</h1>
+         <script>
+            /* podemos usar const, para guadar un objeto, ya que aunque el objeto se transforme va a seguir siendo un objeto
+            
+            un objeto dentro de si puede contener un objeto */
+
+            const Luisa ={
+                nombre: "Luisa",
+                Apellido: "Alarcon",
+                Edad: 22,
+                pasatiempos: ["Programar, escuchar musica, ver series"],
+                soltero: true,
+                contacto:{
+                    email:"lfalarconca987@gmail.com",
+                    twitter: "@luisa",
+                    movil: "+573106400072"
+                },
+                saludar:function(){
+                    console.log("Hola :)")
+                },
+
+                /*Cuando se quiera hacer uso de una propiedad dentro de un objeto, podemos usar la palabra reservada THIS  */
+                decirMiNombre:function(){
+                    `Hola me llamo ${this.nombre} ${this.apellido} y tengo ${this.edad} años y mi numero es ${this.contacto.movil}`
+                }
+            }
+            console.log(Luisa);
+
+            /* como acceder a los valores del objeto */
+
+            console.log(Luisa.nombre,apellido);
+
+            console.log(Luisa.pasatiempos[1])
+
+            cosnole.log(Luisa.contacto.email)
+
+            jon.saludar(); /* es asi porque es una funcion*/
+
+
+            /* metodos utiles 
+            
+            OBJECT.KEYS: es un metodo que permite listar todas las llaves del objeto*/
+
+            console.log(Object.keys(Luisa));
+
+            /* OBJECT.VAUES: es un metodo que permite listar todos los valores de un objeto */
+
+            console.log(Object.values(Luisa));
+
+            /* NombreDelObejto.hasOwnProperty nos permite saber si un objeto tiene una propiedad, es decir, nos permite buscarla */
+
+            console.log(Luisa.hasOwnProperty("nombre"));
+         </script>
+     </div>
+
+
+     <div class="TiposDeOperadores">
+         <h1>TIPOS DE OPERADORES</h1>
+
+         <h2>ARITMETICOS</h2>
+        
+         <!-- suma+ resta- multiplicacion* division/ agrupacion() 
+        
+        aqui se tiene en cuenta la ley de signos -->
+         
+         <script>
+
+             let a = 5 + 5 - 10 *3
+             console.log(a);
+             /* -20 porque primero se realiza la multiplicacion, luego la sumay por ultimo la resta */
+
+             let modulo = 5 % 2;
+             console.log(modulo);
+
+             /* el modulo nos devuelve el residuo de una division*/
+         </script>
+
+         <h2>RELACIONALES</h2>
+         <!-- mayor que, menor que, menor o igual, mayor o igual, ==, ===, !=, !== -->
+         <script>
+             /* = asignacion de variable
+             == comparacion de valores
+             === comparacion de tipo de dato y de valor */
+
+             console.log(7 == 7);
+             console.log("7" == 7);
+             console.log(0 == false);
+
+             console.log(7 === 7);
+             console.log("7" === 7);
+             console.log(0 === false);
+         </script>
+
+         <h2>Incremento Decremento</h2>
+         <script>
+             let i = 1;
+             i+= 3;
+
+             console.log(i);
+             /* la respuesta es 4 */
+
+             let i = 1;
+             i-= 3;
+
+             console.log(i);
+             /*la respuesta es -2  */
+
+             let i = 1;
+             i/= 3;
+
+             console.log(i);
+             /*la respuesta es 0.333  */
+
+             let i = 1;
+             i*= 3;
+
+             console.log(i);
+             /*la respuesta es 3  */
+
+             /* casos especiales 
+             
+             operador unario
+             va aumentando de uno en uno*/
+              
+             let i = 1;
+             i++;
+             i--;
+         </script>
+
+         <h2>OPERADORES LOGICOS</h2>
+         <script>
+             /* !Not : Nieha, es decir lo que es verdadero lo vuelve falso y viceversa
+
+             Or: cuando tengo dos o mas condiciones con que una se cumpla, es decir sea verdadera, el or validara
+
+             && And: cuando tengo dos o mas condiciones, todas tienen que cumplirse, es decir, ser verdaderas para que && se ejecute */
+
+             console.log(!true); /* lo vuelve falso */
+
+             console.log(!false)/* lo vuelve true */
+
+             console.log((9 === 9) || ("9"=== 9));/* devuelve verdadero ya que aunque la segunda funcion no se cumpla la primera si y es suficiente para dar verdadero */
+
+             console.log((9 === 9) && ("9"=== 9));
+         </script>
+     </div>
+
+     <div class="condicionales">
+         <h2>CONDICIONALES</h2>
+
+         <!-- una estructura de control es auqel mecanismo que permite controlar el flujo de tu programacion 
+        
+         if--else -->
+
+         <script>
+             let edad = 17;
+
+             if (edad=== 18){
+                 console.log("Eres mayor de edad")
+             }
+             else{
+                 console.log("Eres menor de edad") 
+             } 
+
+             /* es mala practica utilizar doble igual intente utilizar siempre el triple igual*/
+
+             if (edad > 17){
+                 console.log("Eres Mayor de edad");
+             }
+             else{
+                 console.log("Eres menor de edad");
+             }
+
+
+             /* Operador Ternario (condicion) ? verdadero : falsa */
+
+             let eresMayor = /* condicion */(edad >= 18)
+             /* verdadero */? "Eres Mayor"
+             /* falso */ : "Eres menor";
+
+             console.log(eresMayor);
+         </script>
+
+         <!-- SWITCH CASE -->
+         <script>
+             let dia = 2
+             switch (dia) {
+                 case 0:
+                     console.log("Domingo")
+                     break;
+
+                     case 1:
+                     console.log("Lunes")
+                     break;
+                     
+                     case 2:
+                     console.log("Martes")
+                     break;
+
+                     case 3:
+                     console.log("Miercoles")
+                     break;
+
+                     case 4:
+                     console.log("Jueves")
+                     break;
+
+                     case 5:
+                     console.log("viernes")
+                     break;
+
+                     case 6:
+                     console.log("Sabado")
+                     break;
+
+             
+                 default:
+                     console.log("El dia no existe");
+                     break;
+             }
+         </script>
+     </div>
+
+
+     <div class="ciclos">
+         <h2>CICLOS-BUCLES</h2>
+
+         <!-- WHILE -->
+         <script>
+             let contador = 0;
+             while (contador < 10) {console.log(contador);
+                contador++
+
+                /* es necesario que la varible vaya aumentando para que no se genere un loop infinito 
+                
+                compara antes de ejecutar las lineas que estan dentro delciclo */
+             }
+             
+             /* Respuesta
+             while: 0
+             while: 1
+             while: 2
+             while: 3
+             while: 4
+             while: 5
+             while: 6
+             while: 7
+             while: 8
+             while: 9 */
+
+             do{
+                console.log(contador);
+                contador++
+             }while (contador < 10) {
+                 
+             }
+             /* Almenos se va a ejecutar una vez todo el codigo y a partir de la sugunda en adelante si la condicion se cumple  */
+
+             /* Respuesta
+             do while: 0
+             do while: 1
+             do while: 2
+             do while: 3
+             do while: 4
+             do while: 5
+             do while: 6
+             do while: 7
+             do while: 8
+             do while: 9 */
+         </script>
+
+         <h2>FOR</h2>
+
+         <script>
+
+             /* for (inicializacionde la variable; condicion; decremento o incremento) {
+                 sentencias que ejecuta el for
+                 entencias que ejecuta el for
+                 entencias que ejecuta el for   
+             } */
+
+
+             for (let i =0; i<10; i++) {
+                 console.log(i);    
+             }
+
+             /* Respuesta
+
+             for 0
+             for 1
+             for 2
+             for 3
+             for 4
+             for 5
+             for 6
+             for 7
+             for 8
+             for 9 */ 
+
+
+             let numero = [10,20,30,40,50,60,70,80,90];
+
+             for(let i=0; i< numero.length /*dependiendo de el numero de elementos que tenga el arreglo es el numero de veces que se va a repetir*/;i++){
+                console.log(numero[i]);
+             }
+
+             /* Respuesta
+             10 
+             20
+             30
+             40
+             50
+             60
+             70
+             80
+             90
+             */
+         </script>
+
+
+         <h2>VARIANTES DEL FOR</h2>
+         <script>
+        
+             /* FOR-IN: permite recorrer o iterar las propiedades de un objeto*/
+
+             const Luisa2 = {
+                 nombre: "Luisa",
+                 Apellido: "Alarcon",
+                 Edad: 22
+             }
+
+             for (const propiedad in Luisa2) {
+                 console.log(propiedad);
+             }
+
+             /* Respuesta
+             nombre
+             Apellido
+             Edad */
+
+
+             /* Para Imprimir el valor de un objetovez de usar la notacion del punto, usamos corchetes cuadrados */
+
+             for (const propiedad in Luisa2) {
+                 console.log(`Key:${propiedad}, Value:${Luisa2[propiedad]}`);
+             }
+
+             /* Respuesta
+             Key: nombre, Value: Luisa
+             Key: Apellido, Value: Alarcon
+             Key: Edad, Value: 22 */
+         </script>
+
+         <script>
+             /* FOR-OF: permite recorrer todos los elementos de cualquier objeto que sea iterable (que pueda partirlo en pequeños elementos) en JS*/
+
+             let numero = [10,20,30,40,50,60,70,80,90];
+
+             for (const elemento of numero) {
+                 console.log(elemento);
+                 
+             }
+
+             /* Respuesta
+             10 
+             20
+             30
+             40
+             50
+             60
+             70
+             80
+             90
+             */
+
+             let cadena= "Hola Mundo";
+
+             for (const caracter of cadena) {
+                 console.log(caracter);
+             }
+
+             /* Respuesta
+             H
+             o
+             l
+             a
+             
+             M
+             u
+             n
+             d
+             o*/
+         </script>
+     </div>
+
+     <div class="ManejoDeErrores">
+         <h2>MANEJO DE ERRORES</h2>
+
+         <script>
+             try {
+                 console.log("En el try se agrega el codigo a evaluar");
+             } catch (error) {
+                 console.log("si en la parte del try hay algun error catch lo captura");
+                 console.log(error);
+             }finally{
+                console.log("El bloque finally se ejecutara siempre al final de un bloque try-catch");
+             }
+         </script>
+     </div>
+
+     <div class="breack-continue">
+         <h2>BREACK-CONTINUE</h2>
+         <!-- Nos permite controlar la estructura de control -->
+
+         <script>
+             const numeros= [1,2,3,4,5,6,7,8,9,0]
+
+             for (let i = 0; i < numeros.length; i++) {
+                if (i === 5){
+                    break;
+                }    
+                console.log(numeros[i]);
+             }
+
+             /* respuesta
+             1
+             2
+             3
+             4
+             5 */
+
+             for (let i = 0; i < numeros.length; i++) {
+                if (i === 5){
+                    continue;
+                }    
+                console.log(numeros[i]);
+             }
+
+             /* Respuesta
+             1
+             2
+             3
+             4
+             5
+             7
+             8
+             9
+             0
+             
+             Esto lo hace porque, a diferencia del condicional break que cuando el condicional se cumple (if) este automaticamente termina la estructura de control, continue omite y no imprime el codigo que se encuentra en esa iteracion del ciclo  */
+             
+
+             /* PRACTICA 
+             
+             IPRIMIR SOLO NUMEROS PARES*/
+
+             const numeros = [1,2,3,4,5,6,7,8,9,10]
+
+                for (let i = 0; i < numeros.length; i++) {
+                    if ((i%2)===0) {
+                    continue;
+                    } 
+                    console.log(numeros[i]);
+                }
+                /* Aqui estamos diciendo que el residuo de i/2 debe ser igual a 0
+                
+                entonces como i inicia en la posicion 0 y 0%2 da 0 entonces se slata esa posicion por eso se salta el 1 luego su posicion aumenta a 1 y como 1%2 da 1,5, la condicion no cumple y muestra el 2 y asi sucesivamnete  */
+         </script>
+     </div>
+
+     <div class="destructuracion">
+         <h2>DESTRUCTURACION</h2>
+
+         <script>
+             /* imaginemos que queremos guardar las posciones de un arreglo en variables diferentes */
+
+             const numeros =[1,2,3];
+
+             /* forma sin destructuracion */
+
+             let uno = numeros[0],
+             dos = numeros[1],
+             tres = numeros[2];
+
+             console.log(uno,dos,tres);
+             /* Respuesta
+             123 */
+
+             /* con destructuracion */
+
+             const[uno2,dos2,tres2] = numeros;
+
+             console.log(uno2,dos2,tres2);
+             /* Respuesta
+             123 */
+
+             /* ejemplo con un objeto */
+
+             let persona = {
+                 nombre: "Luisa",
+                 apellido: "Alarcon",
+                 edad: 22
+             }
+
+             /* para que la destructuracion funcione en los objetos es muy importante que la variable que se trata de crear se llame igual a la propiedad que se pretende aislar en una sola variable*/
+
+             let {nombre,apellido,edad} = persona;
+             
+             console.log(nombre,apellido.edad);
+
+         </script>
+     </div>
+
+     <div class="Obejtos literales">
+         <h2>OBJETOS LITERALES</h2>
+
+         <!-- Nueva forma de escribir atributos y metodos incluso asignarlos  -->
+
+         <script>
+
+             /* Ejemplo sin caracteristicas */
+             let nombre ="Muñeca",
+             edad= 6;
+
+             const perro = {
+                 nombre: nombre,
+                 edad: edad,
+                 
+                 ladrar : function(){
+                     console.log("guauu guauu")
+                 }   
+             }
+
+             console.log(perro);
+             perro.ladrar();
+
+             /* ejemplo con caracteristicas */
+
+             /* si la variable que tu vas a asignarle como valor a una propiedad del objeto tiene el mismo nombre de la propiedad que estas pretendiendo asignar
+                 
+             haz lo siguiente*/
+
+             const dog ={
+              nombre,
+              edad,
+
+              /* tambien hay una manera de simplificar los metodos */
+
+              ladrar(){
+                  console.log("guauu guauu guauu");
+              }
+             }
+             console.log(dog);
+             dog.ladrar();
+         </script>
+     </div>
+
+     <div class="parametrosRestYOperaconSpread">
+         <h2>PARAMETROS REST Y OPERACION SPREAD</h2>
+
+         <!-- Los parametros REST son una forma de virtualmente ir agregando parametros infinitos ya sea a una funcion o dentro de una variable, para definir los paramtros REST que definirlos anteponiendoles tres puntos suspensivos antes del nombre donde pueden estar guardados esos posibles valores infinitos -->
+
+         <script>
+             function sumar (a,b, ...c){
+                 let resultado = a+b;
+
+                 c.forEach(function(n){
+                     resultado += n
+                 });
+                 
+                 return resultado;
+             }
+
+             console.log(sumar(1,2));
+             console.log(sumar(1,2,3));
+             console.log(sumar(1,2,3,4));
+             console.log(sumar(1,2,3,4,5));
+         </script>
+
+         <!-- SPREAD-->
+
+         <script>
+             const arr1 = [1,2,3,4,5],
+             arr2 = [6,7,8,9,0];
+
+             const arr3 = [arr1,arr2];
+             console.log(arr3);
+
+             /* respuesta 
+             tendria un arreglo de dos posiciones con los arreglos 1 y 2.
+
+             pero lo que se busca es hacer un arreglo de diez posiciones mezclando los arreglos 1 y dos
+             
+             esto se hace anteponiendo los puntos suspensivos*/
+
+             const arr4 = [...arr1,...arr2];
+             console.log(arr4);
+
+             /* Respuesta
+             [1,2,3,4,5,6,7,8,9,0] un arreglo de 10 posiciones mezclando arr1 y arr2 */
+         </script>
+     </div>
+
+     <div class="ArrowFunctions">
+         <h2>ARROW FUNCTIONS</h2>
+
+         <!-- bueva firma de definir una funcion anonima 
+        
+         una funcion expresada se genera cuando a una variable le asignas el valor de una funcio anonima-->
+         <script>
+             /* SIN ARROW FUNCTION */
+             const saludo = function(){
+                 console.log("Hola");
+             }
+
+             saludar();
+
+             /* CON ARROW FUNCTION */
+             const saludo = ()=>{
+                 console.log("Hola");
+             }
+
+             saludar();
+
+             /* sin una funcion no recibe parametro es necesario poner los parentesis pero cuando si recibe UN parametro los parentesis ya no son necesarios, si es MAS de uno es necesario colocarlos nuevamente */
+
+             const saludo = nombre =>{
+                 console.log(`Hola, ${nombre}`);
+             }
+
+             saludar("Luisa");
+
+             /* ejemplo 2 */
+
+             const sumar= function(a,b){
+                 return a+b;
+             }
+
+             /* lo simplificamos de la siguiente manera, llamado return implicito */
+
+             const sumar = (a,b)=> a+b
+
+             console.log(sumar(9,9));
+             
+             /* cuando es una funcion de vrias lineas es necesario respetar el cuerpo de la funcion */
+
+             const FuncionConVariasLineas = ()=>{
+                 console.log("Uno");
+                 console.log("Dos");
+                 console.log("Tres");
+             }
+
+             /* Ejemplo 3 */
+             const numeros=[1,2,3,4,5]
+
+             numeros.forEach(function(el,index){
+                 console.log(`El elemento ${el}, esta en la posicion ${index}`);
+             });
+
+             /* con arrow function */
+
+             numeros.forEach((el,index)=>{
+                 console.log(`${el}, esta en la posicion ${index}`);
+             });
+
+             /* Y COMO TENEMOS SOLO UNA LINEA DE CODIGO PODEMOS OMITIR LAS LLAVES */
+
+             numeros.forEach((el,index)=>
+                 console.log(`${el}, esta en la posicion ${index}`)
+               );
+
+               /* SE DEBE TENER CUIDADO AL UTILIZAR ARROW FUNCTIONS PARA DELARAR METODOS DENTRO DE OBJETOS LITERALES */
+         </script>
+     </div>
+
+</body>
+</html>

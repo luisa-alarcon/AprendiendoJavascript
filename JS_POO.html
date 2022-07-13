@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS_POO</title>
+</head>
+<body>
+    <div class="Prototipos">
+        <h2>PROTOTIPOS dia 1 de 48</h2> 
+        <!-- POO
+        CLASES: Modelo a seguir
+        Objetos: Es una instancia de una clase
+         
+          -Atributos: es una caracteristica o propiedad del objeto (varuables dentro de un objeto)
+          -Metodos: las acciones que un objeto puede realizar (funciones dentro de un objeto) -->
+
+        <script>
+            /* Funcion constructora: 
+             se construye una sola vez y a partir de ella se van a generar nuevas instancias nuevo objetos que sean de este tipo de funcion constructora */
+
+             /* Al trabajar con funciones constructoras tanto los atributos como los metodos se tienen que colgar del objeto THIS
+             
+             No se usan arrow function*/
+
+             /* VERSION 1 */
+
+             function Animal (nombre, sexo) {
+                 /* Atributos */
+                 this.nombre = nombre;
+                 this.sexo = sexo;
+
+                 /* Metodos */   
+                 this.sonar= function (){
+                    console.log("Hago sonidos porque estoy vivo")
+                 }
+             }
+
+             /* con NEW podemos crear una nueva instancia (un nuevo objeto) del tipo que le especifiquemos */
+             const snoopy = new Animal("Snoopy", "Macho"),
+             lolaBunny = new Animal ("LolaBunny", "Hembra");
+
+             console.log(snoopy);
+             console.log(lolaBunny);
+
+
+
+             /* VERSION 2 
+             
+             funcion constructora donde asignamos los metodos al prototipo, no a la funcion como tal, brinda mas eficiencia y evita los duplicados en las instancias*/   
+
+             function Animal2 (nombre, sexo) {
+                 /* Atributos */
+                 this.nombre = nombre;
+                 this.sexo = sexo;
+             }
+
+             /* Metodos agregados al prototipo de la funcion constructora  */   
+             Animal2.prototype.sonar= function (){
+                    console.log("Hago sonidos porque estoy vivo")
+                 }
+
+             const snoopy2 = new Animal("Snoopy", "Macho"),
+             lolaBunny2 = new Animal ("LolaBunny", "Hembra");
+
+             console.log(snoopy2);
+             console.log(lolaBunny2);
+        </script>
+    </div>
+
+    <div class="herenciaPrototipica">
+        <h2>HERENCIA PROTOTIPICA</h2>
+        <script>
+            /* HERENCIA PROTOTIPICA */
+            function Perro(nombre, sexo,tamanio){
+                this.super= Animal2;
+                this.super(nombre, sexo);
+                this.tamanio= tamanio; 
+            }
+
+            //Perro esta heredando de Animal2   
+            Perro.prototype = new Animal2();
+
+            //sobreescritura de metodos del prototipo padre en el hijo
+
+            Perro.prototype.sonar= function(){
+                console.log("Soy un perro y mi sonido el ladrido");
+            }
+
+            perro.prototype.ladrar= function(){
+                console.log("Guau, guau");
+            }
+
+            const snoopy3 = new Perro("Snoopy", "Macho", "Mediano");
+        </script>
+    </div>
+
+    <div class="ClasesYHerencia">
+        <h2>CLASES Y HERENCIA</h2>
+
+        <script>
+            class Animal3 {
+                /* El constructor de una clase es un metodo especial que se ejecut en el moment de instanciar la clase */
+            constructor(Nombre, Sexo){
+                this.Nombre=Nombre;
+                this.Sexo = Sexo;
+            }
+
+
+            sonar(){
+                console.log("Hago sonidos porque estoy vivo");
+            }
+
+            saludar (){
+                console.log(`Hola me llamo ${this.Nombre}`);
+            }  
+        }
+
+        const mimi = new Animal3("mimi","Hembra"),
+        scooby = new Animal3("scooby", "Macho");
+
+        console.log("mimi");
+        console.log("scooby");
+
+        /* HERENCIA */
+
+        class Perro2 extends Animal3{
+            constructor (Nombre, Sexo, Tamanio){
+                //Es un metodo que manda a llamar  constructir de la clase padre
+            super(Nombre, sexo);
+            this.Tamanio = Tamanio;
+            }
+
+            sonar(){
+                console.log("Soy un perro y mi sonido es un ladrido");
+            }
+
+            ladrar (){
+                console.log("Guau, Guau");
+            }
+        }
+        const mimi2 = new Perro2("mimi","Hembra", "Grande"),
+        scooby2 = new Perro2("scooby", "Macho", "Pequeño");
+
+        console.log("mimi2");
+        console.log("scooby2");
+        </script>
+
+        <!-- la cadena que nos saldra es que su portotipo padre sera Animal y el pototipo padre de este sera object (o objeto primitivo de javaScript)  
+        
+        NOTA: JavaScript es un lenguaje que la orientacion a objetos la basa en prototipos-->
+    </div>
+
+    <div class="MetodosEstatitcosGetterSetter">
+        <h2>METODOS ESTATICOS, GETTER Y SETTER </h2>
+
+        <!-- Metodo estatico:
+        un metodo estatico es aquel que se puede ejecutar sin instanciar la clase -->
+
+        <script>
+            class Perro2 extends Animal3{
+            constructor (Nombre, Sexo, Tamanio){
+                //Es un metodo que manda a llamar  constructir de la clase padre
+            super(Nombre, sexo);
+            this.Tamanio = Tamanio;
+            this.raza= null;
+            }
+
+            sonar(){
+                console.log("Soy un perro y mi sonido es un ladrido");
+            }
+
+            ladrar (){
+                console.log("Guau, Guau");
+            }
+
+            static queEres(){
+                console.log("Los perros somo mamiferos que pertenecemos a la familia de los caninos");
+            }
+
+            /* los setters y getters son metodos especiales que nos permiten establecer y obtener los valores de atributos de nuestra clase*/
+
+            get getraza(){
+                return this.raza
+            }
+
+            /* aunque el get sea un metodo obtenedor se usa como propiedad ya que javascript asi lo trabaja*/
+
+        
+            set setraza(raza){
+                this.raza = raza;
+            }
+
+
+        }
+
+        console.log(getraza);
+
+        scooby.setraza= "show show";
+        console.log(setraza);
+
+        Perro2.queEres();
+        </script>
+    </div>
+
+    <div class="ObjetoConsole">
+        <h2>OBJETO CONSOLE</h2>
+
+        <script>
+            console.error("Esto es un error");
+            console.warn("Esto es un aviso");
+            console.info("Esto es un mensaje informativo");
+            console.log("un registro de lo que ha pasado en nuestra aplicacion");
+
+            let nombre = "Luisa",
+            apellido= "Alarcon",
+            edad = 22;
+
+            console.log(nombre, apellido, edad);
+
+            console.log(`Hola mi nombre es ${nombre} ${apellido}, tengo ${edad} años.`);
+
+            
+            console.dir(document);
+            console.log(document);
+            console.clear();
+
+            console.group("Comidas");
+            console.log("Pan");
+            console.log("huevo");
+            console.log("leche");
+            console.log("pollo");
+            console.log("zanahoria");
+            console.groupEnd();
+
+            console.log(console);
+            console.table(Object.entries(console).sort());
+
+            /* sort: sirve para organizar de manera ascendente o por orden alfabetico */
+
+            const numeros = [1,2,3,4,5],
+            vocales = ["a","e","i","o","u"];
+
+            console.table(numeros);
+            console.table(vocales);
+
+            const perro = {
+                nombre : "jhonny",
+                raza: "show show",
+                Color: "negro"
+            }
+
+            console.table(perro);
+
+            console.time("cuanto tiempo tarda mi codigo");
+            const arreglo = Array(1000000);
+
+            for (let i = 0; i< arreglo.length; i++){
+                arreglo[i]=i;
+            }
+
+            console.timeEnd("cuanto tiempo tarda mi codigo"); 
+
+            /* time y timeEnd deben tener el mismo "alias, etiqueta o texto" */
+
+
+            for (let i = 0; i<= 100; i++){
+                console.count("codigo for");
+                console.log(i);
+            }
+
+            let x = 1,
+            y = 2,
+            pruebaXY = "Se espera que X re sea menor Y";
+
+            console.assert(x<y,{x,y,pruebaXY});
+
+            /* SI NO APARECE NADA ES PORQUE LA PRUEBA SE EJECUTO CORRECTAMENTE, intente cambiar x = 1 por x = 3 */
+        </script>
+    </div>
+    
+    <div class="objetoDate">
+        <h2>Objeto DATE</h2>
+
+        <script>
+            console.log(Date());
+
+            let Fecha = new Date();
+            console.log(Fecha);
+
+            /* Dia del mes */
+            console.log(Fecha.getDate());
+
+            /* dia de la semana D,L,M,M,J,V,S -- 0,1,2,3,4,5,6 */
+            console.log(Fecha.getDay());
+
+            /* MES ene, feb,marz,abr,may,jun,jul,ago,sep,oct,nov,dic-- 0,1,2,3,4,5,6,7,8,9,10,11*/ 
+            console.log(Fecha.getMonth());
+
+            /* Año */
+            console.log(Fecha.getFullYear());
+
+            /* Hora-minutos-segundos */
+            console.log(Fecha.getHours());
+            console.log(Fecha.getMinutes());
+            console.log(Fecha.getSeconds());
+
+            /* Maneras mas humanamente entendibles de obtener la fecha */
+            console.log(Fecha.toString());
+
+            console.log(Fecha.toDateString());
+
+            console.log(Fecha.toLocaleString());
+
+            console.log(Fecha.toLocaleDateString());
+
+            console.log(Fecha.toLocaleTimeString());
+
+            console.log(Date.now); /* time stamp - los segundo que han pasado desde 1970 */
+        </script>
+    </div>
+
+    <div class="objetoMath">
+        <h2>OBJETO MATH</h2>
+
+        <script>
+            console.log(Math);
+            console.log(Math.PI);
+
+            console.log(Math.abs(7.8))/* Nos devuelve el valor absoluto de un numero */;
+
+            console.log(Math.ceil(7.8))/* redondea al numero inmediato entero mayor */;
+
+            console.log(Math.floor(7.8))/* redondea al numero inmediato entero menor */;
+
+            console.log(Math.round(7.2)/* redondea al numero entero mas cercano */); 
+
+            console.log(Math.sqrt(2))/* saca la riz cuadrada de un numero */;
+
+            console.log(Math.pow(2,5));/* eleva potencias, el primer numero es la base el segundo el exponente */
+
+            console.log(Math.sign(-7.8));/* nos indica si el numero es negativo (devuelv un -1), posiivo (devuelve un 1) o cero (devuelve 0) */
+
+            console.log(Math.random());/* brinda un numero aleatorio ente 0 y 1 */
+
+            console.log(Math.random()*1000);/* brinda un numero aleatorio ente 0 y 1 */
+
+            console.log(Math.round(Math.random()*1000))/* brinda un numero aleatorio ente 0 y 1 redondeado */
+        </script>
+    </div>
+
+    <div class="operadorDeCortoCircuito">
+        <h2>OPERADOR DE CORTOCIRCUITO</h2>
+
+        <script>
+            /* Funcionan poniendo dos condiciones ya sea poniendo el operador logico or o el oprador logico and */
+
+            /* CortoCircuito con or:
+            cuando el valor de la izquierda en la expresion siempe se pueda validar a false, es el valor que se cargara por defecto */
+
+            function saludar (nombre){
+                nombre = nombre || /*este es un codigo cortocircuito, donde le indico que si obtiene valor para la variable nombre ponga el nombre y si no, que ponga "Desconocido" */"Desconocido";
+                console.log(`Hola ${nombre}`)
+
+                /* con OR quiere decir que si el valor de la izquierda es true este se cargara si es false se cargara uno por defecto con && es lo contrario*/
+            }
+
+            saludar("Luisa");
+            saludar();
+
+        </script>
+    </div>
+
+    <div class="alert,confirm,prompt">
+        <h2>Alert, Confirm, Prompt</h2>
+        <script>
+           /* Interaccion con el usuario 
+           
+           son metodos que cuelgan del objeto global window*/ 
+
+           console.log(window);
+
+           window.alert("Esto es una alerta");
+           
+           /* No es necesario poner el window */
+
+           confirm("Esto es una confirmacion");
+
+           prompt("Hola esto es un prompt, y le permite al usuario ingresar un valor")
+        </script>
+        <script>
+            let alerta = alert("Hola, Esto es una alerta"),
+
+            confirmacion =  confirm("Hola, Esto es una confirmacion"),
+
+            aviso =  prompt("Holii esto es un Aviso, y le permite al usuario ingresar un valor");
+
+            console.log(alerta);
+            console.log(confirmacion);
+            console.log(aviso);
+
+        </script>
+    </div>
+
+    <div class="ExpresionesRegulares">
+        <h2>EXPRESIONES REGULARES</h2>
+        <script>
+            /* facilita las validaciones
+            
+            por ejemplo se pueden validar que un correo, un numero de identificacion etc..., tengan los parametros validos*/
+
+            /* manera de definir una expresion regular  
+            
+            Recibe dos parametros
+            
+            1. el patron que desea buscar
+            2. banderas o comodines que me van a permitir realizar pequeñas modificaciones a una expresion regular 
+            
+            con "g" le indicamos que busque todas las coincidencias
+            
+            con "i" ignora mayusculas y minusculas*/
+
+            let cadena = ("Lorem ipsum dolor jslakjdlksadjlj slkdjlsk")
+
+            /* Modo 1 */
+            let expReg = new RegExp("Lorem", "ig");
+
+            /* Modo 2 */
+            let expReg2 = /Lorem/ig;
+
+            /* como se puede hacer para que javascript valide la expresion regular */
+
+            /* 1. metodo test: devuelve true o false */
+            console.log(expReg.test(cadena));
+
+            console.log(expReg2.test(cadena));
+            
+            /* 2. metodo exec: devuelve un arreglocon un objeto adentro */
+            console.log(expReg.exec(cadena));
+
+            console.log(expReg2.exec(cadena));
+            
+        </script>
+    </div>
+
+    <div class="FuncionesAnonimasAutoejecutables">
+        <h2>FUNCIONES ANONIMAS AUTOEJECUTABLES</h2>
+        <script>
+            /* Es una funcion en la cual se engloba todo el codigo que se quiere ejecutar
+            
+            patron pra ejecutar modulos*/
+
+            /* Clasica */
+            (function(){
+                console.log("Mi primer IIFE")
+            })();
+
+            (function(d,w,c){
+                console.log("Mi segunda IIFE")
+                console.log(d);
+                c.log("Esta es una abreviacion del console.log")
+            })(document, window,console);
+
+            /* La Crockford */
+            ((function(){
+                console.log("Version Crockford")
+            })());
+
+            /* Unaria */
+            +function(){
+                console.log("Version Unaria")
+            }();
+
+            /* Facebook */
+            !function(){
+                console.log("Version Facebook")
+            }();
+        </script>
+    </div>
+
+    <div class="ModuloImportExport">
+        <h2>MODULOS (IMPORT/EXPORT)</h2>
+        <script>
+            /* lo ideal es que el codigo este escrito en archivos javascript y sea llamado */
+        </script>
+
+        <h1>DESDE AQUI DIRIGIRSE A LA CARPETA JS</h1>
+    </div>
+</body>
+</html>

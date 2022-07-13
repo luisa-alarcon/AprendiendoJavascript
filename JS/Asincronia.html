@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Asincronia en JavaScript</h1>
+    <div class="Temporizadores (setTimeout & setInterval)">
+        <h2>Temporizadores (setTimeout & setInterval)</h2>
+        <script>
+            /* Temporizadores
+             js tiene funciones que nos van a permitir lanzar otras acciones despues de haber pasado cierto tiempo o despues de una n cantidad de veces*/
+
+             /* setTimeout y setInterval
+             
+             la diferencia entre uno y otro es que el setTimeout recibe una funcion que va ejecutar y recibe un tiempo expresado en milisegundos 
+             
+             setTimeout(() => {
+                 
+             }, timeout);*/
+
+             console.log("inicio");
+
+             setTimeout(() => {
+                 console.log("Ejecuntando un setTimeOut, esto se ejecutara una sola vez")
+             }, 3000);
+
+             /* Aqui queremos decir que al haber pasado 1 segundo (1000 = 1 seg) todo el bloque de codigo que se ponga dentro de la funcion del setTimeout es lo que se va a ejecutar */
+
+
+             /* Que pasaria si se quiere ejecutar varias veces en base a un intervalo de tiempo, aqui se usa el setItervl */
+
+             setInterval(() => {
+                console.log("Ejecuntando un setInterval, esto se ejecutara indefinidamente cada cierto intervalo de tiempo")
+             }, 1000);
+
+             /* este de igual manera recibe una funcion y un intervalo de tiempo */
+
+
+             /* con esto podriamos crear un reloj por ejemplo*/
+
+             setTimeout(() => {
+                 console.log(new Date().toLocaleTimeString());
+             }, 1000);
+
+             setInterval(() => {
+                 console.log(new Date().toLocaleTimeString());
+             }, 1000);
+
+             /* Existen unas contrapartes que cancelan estos setIntervals y setTimeout */
+
+             clearTimeout() /* Cancela el setTimeout, pero para que funcione es necesario que el setTimeout este guardado en una variable */
+
+             let temporizador = setTimeout(() => {
+                 console.log(new Date().toLocaleTimeString());
+             }, 1000);
+
+             clearTimeout(temporizador);
+
+             /*Asi mismo con el setInterval*/
+             let temporizador2 = setInterval(() => {
+                 console.log(new Date().toLocaleTimeString());
+             }, 1000);
+
+             clearInterval(temporizador2);
+        </script>
+    </div>
+
+
+
+    <div class="Asincronia_Y_EventLoop">
+        <h2>Asincronia y Event Loop</h2>
+        <script>
+            /* La asincronia es uno de los pilares de JS
+            
+            js es un lenguaje single thread(un proceso a la vez) 
+            La asincronia permite realizar largas solicitudes de red sin bloquear el hilo principal*/
+
+            /* Procesamiento Single thread y Multi thread:
+            los threads o los hilos son las unidades basicas de ejecucion de cada proceso que realiza nuestra maquina (ej cada que se abre el navegador o editor de codigo se levanta un proceso e internamente esos procesos puede correr varios hilos o un solo hilo) hay lenguajes que trabajan con un solo hilo y lenguajes que trabajan con multiples hilos   
+             */
+
+            /* Operaciones de CPU:
+            son aquellas que van a pasar el mayor tiempo consumiendo los procesos de nuestra CPU
+
+            Operacion de I / O:
+            van a pasar la mayor parte del tiempo esperando la peticion del recurso que han solicitado*/
+
+            /* Operaciones concurrentes: 
+            la concurrencia significa, o es cuando dos o mas tareas progresan simultaneamiente, es decir se estan ejecuntando al mismo tiempo y ahi van avanzando simultaneamente
+            
+            Operaciones Paralelas: el paralelismo es cundo dos a mas tareas se ejecutan al mismo tiempo*/
+
+            /* Operaciones Bloqueantes: los bloueante y no bloqueante se refiere a la fase de espera que siempre habra cada que se va ejecutando ua operacion de nuestro codigo si una operacion es bloqueante o no bloqueante se va a referir a como toma esa fase de espera
+            
+            una OPERACION BLOQUEANTE: es aquella que no va a devolve el control a la aplicacion hasta que no haya terminado toda su tarea
+            
+            NO BLOQUEANTE: significa que las operaciones se ejecutan y devuelven el control al hilo principal no importando si han terminado o no la tarea, en el momento que una tarea no bloqueante se acabe mandara una notificacion y entonces se avisara al hilo principal, en caso de completarse devolvera los datos solicitados o el mensaje correspondiente y en caso contrario se podria manejar un codigo de error */
+
+            /* Operacion sincronas y asincronas: se refiere a cuando tendra lugrar la respuesta.
+            
+            SINCRONO: significa que la respuesta sucede en el presente, en el momento inmediato, una operacion sincrona espera el resultado.
+            
+            ASINCRONO: singinifica que la respuesta sucede en un futuro, se ejecuta pero no sabe cuando va a venir la respuesta, es ecir la operacion asincrona no va a esperar el resultado es por eso que suelta inmediatamente el control y se lo regresa al hilo principal. 
+             */
+
+             /* En JS vamos a tener 2 tipos de codigo 
+             
+             CODIGO SINCRONO BLOQUEANTE
+             en una operacion sincrona bloqueante, la operacion se hace de una vez, bloqueando el flujo del hilo principal, este hilo queda bloqueado mientras se espera la respuesta, cuanto esta se procese pasa a la siguiente operacion y asi sucesivamente hasta terminar las operaciones  
+
+             http://latentflip.com/loupe/
+
+             si hay dudas ingresa aqui
+
+             */
+
+             (()=>{
+                console.log("Codigo sincrono");
+                console.log("inicio");
+
+                function dos(){
+                    console.log("Dos");
+                }
+
+                function uno(){
+                    console.log("Uno");
+                    dos();
+                    console.log("tres");
+                }
+
+                uno();
+                console.log("Fin");
+             })();
+             /* Respuesta
+             Codigo Sincrono
+             Inicio
+             Uno
+             Dos
+             Tres
+             Fin */
+
+
+
+             /* CODIGO ASINCRONO NO BLOQUEANTE: las peticiones del algunas tareas se ejecutan en un futuro inmediato */
+
+             (()=>{
+                console.log("Codigo Asincrono");
+                console.log("inicio");
+
+                function dos(){
+                    setTimeout(function(){
+                        console.log("Dos");
+                    },1000);
+                }
+
+                function uno(){
+                    setTimeout(function(){
+                        console.log("Uno");
+                    },0);
+                    dos();
+                    console.log("tres");
+                }
+
+                uno();
+                console.log("Fin");
+             })();
+             /* Respuesta
+             Codigo Asincrono
+             Inicio
+             Tres
+             Fin
+             Uno
+             Dos */
+
+
+             /* Y con single thread en la mayoria de los casos con operaciones de entrada y salida */
+
+             /* JS USA UN MODELO ASINCRONO Y NO BLOQUEANTE, CON UN LOOP DE EVENTOS IMPLEMENTADO EN UN SOLO HILO, PARA OPERACIONES DE ENTRADA Y SALIDA */
+        </script>
+    </div>
+</body>
+</html>
