@@ -22,50 +22,50 @@
                  
              }, timeout);*/
 
-             console.log("inicio");
+             /* console.log("inicio");
 
              setTimeout(() => {
                  console.log("Ejecuntando un setTimeOut, esto se ejecutara una sola vez")
-             }, 3000);
+             }, 3000); */
 
-             /* Aqui queremos decir que al haber pasado 1 segundo (1000 = 1 seg) todo el bloque de codigo que se ponga dentro de la funcion del setTimeout es lo que se va a ejecutar */
+             /* Aqui queremos decir que al haber pasado 3 segundoS (3000 = 3 seg) todo el bloque de codigo que se ponga dentro de la funcion del setTimeout es lo que se va a ejecutar */
 
 
              /* Que pasaria si se quiere ejecutar varias veces en base a un intervalo de tiempo, aqui se usa el setItervl */
 
-             setInterval(() => {
+            /*  setInterval(() => {
                 console.log("Ejecuntando un setInterval, esto se ejecutara indefinidamente cada cierto intervalo de tiempo")
-             }, 1000);
+             }, 1000); */
 
              /* este de igual manera recibe una funcion y un intervalo de tiempo */
 
 
              /* con esto podriamos crear un reloj por ejemplo*/
 
-             setTimeout(() => {
+            /*  setTimeout(() => {
                  console.log(new Date().toLocaleTimeString());
              }, 1000);
 
              setInterval(() => {
                  console.log(new Date().toLocaleTimeString());
-             }, 1000);
+             }, 1000); */
 
              /* Existen unas contrapartes que cancelan estos setIntervals y setTimeout */
 
-             clearTimeout() /* Cancela el setTimeout, pero para que funcione es necesario que el setTimeout este guardado en una variable */
+             /* clearTimeout() */ /* Cancela el setTimeout, pero para que funcione es necesario que el setTimeout este guardado en una variable */
 
-             let temporizador = setTimeout(() => {
+            /*  let temporizador = setTimeout(() => {
                  console.log(new Date().toLocaleTimeString());
              }, 1000);
 
-             clearTimeout(temporizador);
+             clearTimeout(temporizador); */
 
              /*Asi mismo con el setInterval*/
-             let temporizador2 = setInterval(() => {
+            /*  let temporizador2 = setInterval(() => {
                  console.log(new Date().toLocaleTimeString());
              }, 1000);
 
-             clearInterval(temporizador2);
+             clearInterval(temporizador2); */
         </script>
     </div>
 
@@ -90,9 +90,9 @@
             van a pasar la mayor parte del tiempo esperando la peticion del recurso que han solicitado*/
 
             /* Operaciones concurrentes: 
-            la concurrencia significa, o es cuando dos o mas tareas progresan simultaneamiente, es decir se estan ejecuntando al mismo tiempo y ahi van avanzando simultaneamente
+            la concurrencia significa, o es cuando dos o mas tareas progresan simultaneamiente, es decir se estan ejecuntando al mismo tiempo y ahi van avanzando simultaneamente pero puede ser que una tarea empezo antes o despues
             
-            Operaciones Paralelas: el paralelismo es cundo dos a mas tareas se ejecutan al mismo tiempo*/
+            Operaciones Paralelas: el paralelismo es cuando dos a mas tareas se ejecutan al mismo tiempo*/
 
             /* Operaciones Bloqueantes: los bloueante y no bloqueante se refiere a la fase de espera que siempre habra cada que se va ejecutando ua operacion de nuestro codigo si una operacion es bloqueante o no bloqueante se va a referir a como toma esa fase de espera
             
@@ -104,7 +104,7 @@
             
             SINCRONO: significa que la respuesta sucede en el presente, en el momento inmediato, una operacion sincrona espera el resultado.
             
-            ASINCRONO: singinifica que la respuesta sucede en un futuro, se ejecuta pero no sabe cuando va a venir la respuesta, es ecir la operacion asincrona no va a esperar el resultado es por eso que suelta inmediatamente el control y se lo regresa al hilo principal. 
+            ASINCRONO: singinifica que la respuesta sucede en un futuro, se ejecuta pero no sabe cuando va a venir la respuesta, es decir la operacion asincrona no va a esperar el resultado es por eso que suelta inmediatamente el control y se lo regresa al hilo principal. 
              */
 
              /* En JS vamos a tener 2 tipos de codigo 
@@ -112,13 +112,16 @@
              CODIGO SINCRONO BLOQUEANTE
              en una operacion sincrona bloqueante, la operacion se hace de una vez, bloqueando el flujo del hilo principal, este hilo queda bloqueado mientras se espera la respuesta, cuanto esta se procese pasa a la siguiente operacion y asi sucesivamente hasta terminar las operaciones  
 
+             CODIGO ASINCRONO NO BLOQUEANTE: las peticiones del algunas tareas se ejecutan en un futuro inmediato
+
+
              http://latentflip.com/loupe/
 
              si hay dudas ingresa aqui
 
              */
 
-             (()=>{
+            /*  (()=>{
                 console.log("Codigo sincrono");
                 console.log("inicio");
 
@@ -134,20 +137,24 @@
 
                 uno();
                 console.log("Fin");
-             })();
+             })(); */
              /* Respuesta
              Codigo Sincrono
              Inicio
              Uno
              Dos
              Tres
-             Fin */
+             Fin
+             
+             SE SALTA A uno(); porque en las funciones solo se esta declarando codigo mas no ejecutado
+             
+             EVENT LOOP: ES UN UNICO HILO /SUBPROCESO EN EL CUAL SE VA DESPACHANDO TODA LA INFORMACION */
 
 
 
              /* CODIGO ASINCRONO NO BLOQUEANTE: las peticiones del algunas tareas se ejecutan en un futuro inmediato */
 
-             (()=>{
+             /* (()=>{
                 console.log("Codigo Asincrono");
                 console.log("inicio");
 
@@ -167,19 +174,123 @@
 
                 uno();
                 console.log("Fin");
-             })();
+             })(); */
              /* Respuesta
              Codigo Asincrono
              Inicio
              Tres
              Fin
              Uno
-             Dos */
+             Dos 
+             
+             AQUI ES PORQUE EL SETTIMEOUT AL SER UNA FUNCION ASINCRONA PARA A LA PILA DE TAREAS MIENTRAS QUE CONSOLE LOG AL SER UNA FUNCION SINCRONA INMEDIATA SE EJECUTA PRIMERO*/
 
 
              /* Y con single thread en la mayoria de los casos con operaciones de entrada y salida */
 
              /* JS USA UN MODELO ASINCRONO Y NO BLOQUEANTE, CON UN LOOP DE EVENTOS IMPLEMENTADO EN UN SOLO HILO, PARA OPERACIONES DE ENTRADA Y SALIDA */
+
+
+             /*CALLBACKS 
+             mecanismo de js para trabajar con la asincronia */
+
+               /*  function CuadradoCallback(value, callback){
+                    setTimeout(()=>{
+                        callback(value, value * value);
+                    }, 0 | Math.random() * 100)
+                }
+
+                CuadradoCallback(0, (value, resultado)=>{
+                    console.log("inicia callback");
+                    console.log(`callback:  ${value}, ${resultado}`);
+                }) */
+
+            /*PROMESA
+            EVITA EL CALLBACKHELL: CALLBACK ANIDADOS DE TRO DE OTROS
+            
+            tener en cuenta resolve es como el return postivo y reject el return negativo*/
+                
+            /* function CuadradoPromesa(value){
+                if(typeof value !== "number") return Promise.reject("Error: El valor ingresado no es un numero");
+                return new Promise((resolve, reject)=>{
+                    setTimeout(()=>{
+                        resolve({
+                            value : value, //esto se puede simplificar ya que el atributo y el valor tienen el mismo nombre 
+                            result: value*value
+                        });
+                    }, 0 | Math.random() * 100)
+                })
+            } */
+            /*Cuando se tiene una promesa hay dos mtodos para trabajar la asoncronia
+            .then() que es el siguiente bloque que se va a ejecutar una vez se cumpla la funcion inicial al final de los metodos then o el resolve, se tendra el metodo catch() que es el que va a capturar el error resultante del reject 
+            
+            podmos verlo con un operador ternario donde then sera verdadero y catch falso
+            
+            LAS PROMESAS CONVIENE USARLAS CUANDO TENEMOS VARIOS PROCESOS ASINCRONOS SI SOLO ES UNO CONVIENE MAS UN CALLBACK*/
+
+           /*  CuadradoPromesa(0)
+            .then((obj)=>{
+                console.log(obj);
+                return CuadradoPromesa(1);
+            })
+            .then((obj)=>{
+                console.log(obj);
+                return CuadradoPromesa(2);
+            })
+            .then((obj)=>{
+                console.log(obj);
+                return CuadradoPromesa("3");
+            })
+            .then((obj)=>{
+                console.log(obj);
+                return CuadradoPromesa(4);
+            })
+            .then((obj)=>{
+                console.log(obj);
+                return CuadradoPromesa(5);
+            })
+            .then((obj)=>{
+                console.log(obj);
+            })
+            .catch(); */
+
+            /*Async Await
+            van a esperar a que algo se cumpla para poder seguir ejecutando el proceso que se esta trabajando en ese momento, trabaja en conjunto con las promesas
+            
+            para que una funcion se tome como asincrona dee anteponerse un async*/
+
+            function CuadradoPromesa(value){
+                if(typeof value !== "number") return Promise.reject("Error: El valor ingresado no es un numero");
+                return new Promise((resolve, reject)=>{
+                    setTimeout(()=>{
+                        resolve({
+                            value : value, //esto se puede simplificar ya que el atributo y el valor tienen el mismo nombre 
+                            result: value*value
+                        });
+                    }, 0 | Math.random() * 100);
+                });
+            }   
+
+            async function funcionAsincronaDeclarada(){
+                try {
+                    console.log("inicio de async function");
+
+                    let obj = await CuadradoPromesa(0);
+                    console.log(`async function ${obj.value}, ${obj.result}`);
+                    //como es una variable, aqui decimos que cuando se ejecute el cuadrado de cero, la variable va a ser igual a la funcion cuadradoPromesa(1)  
+                    obj = CuadradoPromesa(1);
+                    console.log(`async function ${obj.value}, ${obj.result}`);
+                } catch (err) {
+                    
+                }
+            }
+
+            funcionAsincronaDeclarada();
+
+
+            
+
+            //en este caso si el await la repuesta seria que se ejecuta la promesa pero como tiene un setTimeout qeda en la pila de tareas mientras que el console log se ejecuta automatico y puede que cuanodo se ejecute el console.log aun no este el resultado de la promesa por lo que quedara undefined, por eso se usa el await, esto le dice a javascript dentro de una funcion asincrona que espere el resultado de la operacion en proceso antes de pasar a la siguiente linea y ejecutarla 
         </script>
     </div>
 </body>
