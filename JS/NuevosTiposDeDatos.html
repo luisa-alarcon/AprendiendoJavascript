@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Nuevos tipos de datos JS </h1>
+    <script>
+        /*Symbol:
+        Tipo de dato primitivo, Symbol es un tipo de datos cuyos valores son únicos e immutables. 
+        Dichos valores pueden ser utilizados como identificadores (claves) de las propiedades de los objetos. 
+        Cada valor del tipo Symbol tiene asociado un valor del tipo String o Undefined que sirve únicamente como descripción del símbolo  */
+
+        let id = Symbol();
+        let id2 = "Hola";
+
+        console.log(id === id2); //false 
+
+        let symbol = Symbol();
+        let symbol2 = Symbol();
+
+        console.log(symbol === symbol2); //false porque sus valores son  únicos e immutables.
+
+        /*LAS BUENAS PRACTICAS INDICAN QUE DEBEN CREARSE CON CONSTANTES (CONST) Y LA GRAMATICA INDICA QUE LAS CONSTANTES SE ESCRIBEN EL MAYUSCULA
+        
+        su uso mas cotidiano es para crear propiedades privadas de los objetos*/
+
+        const NOMBRE = Symbol();
+        const SALUDAR = Symbol("saludar");
+
+        const persona = {
+            [NOMBRE]: "Luisa"
+        }
+
+        console.log(persona);
+
+        //NOTA: podemos ingresar una propiedad con la notacion del punto PERO CON SYMBOL SI ES NECESARIO LA NOTACION DE LOS CORCHETES
+
+        persona.NOMBRE= "Luisa Fernanda";  
+        console.log(persona);
+
+        //PARA LLAMAR A LA PROPIEDAD SYMBOL LO HACEMOS CON CORCHETES EN CASO CONTRARIO SERA CON EL PUNTO 
+
+        console.log(persona[NOMBRE]);
+        console.log(persona.NOMBRE);
+
+        persona[SALUDAR] = function(){
+            console.log("Hola");
+        }
+
+        console.log(persona);
+        persona[SALUDAR]();
+
+        //obtener los atributos privados /symbol de un objeto 
+        console.log(Object.getOwnPropertySymbols(persona));
+    </script>
+
+    <h1>SETS</h1>
+    <script>
+        //Estructura similar a un objeto especial con caracteristicas de arreglos que solo acepta valores unicos
+
+        //como crear un set y agregar valores ahi mismo 
+        const set = new Set([1,2,3,3, true, false, false, {},{}, "hola", "HOLA", "hola"]);
+
+        console.log(set);
+        //para saber el tamaño de un set 
+        console.log(set.size);
+
+        //como agregarle valores a un set 
+
+        const set2 = new Set();
+        set2.add(1);
+        set2.add(2);
+        set2.add(2);
+        set2.add("3");
+        set2.add(false);
+        set2.add(true);
+        set2.add(true);
+        set2.add("3");
+        set2.add(4);
+        set2.add(false);
+
+        console.log(set2);
+
+        console.log("RECORRER SETS");
+        console.log("FOR OF");
+
+        for(item of set2){
+            console.log(item);
+        }
+
+        console.log("FOREACH");
+        set.forEach(item => console.log(item));
+
+        //ACCEDER A LA POSICION
+
+        /*Lo hacemos mediante in array.from, ya que esto convierte el set en un iterable de tipo 
+        arreglo y ya se comportaria como un arreglo*/
+
+        console.log("ACCEDER A LA POSICION");
+        let arr = Array.from(set);
+
+        console.log(arr[5]);
+
+        //ELIMINAR VALORES DEL SET 
+
+        set2.delete(2);
+        console.log(set2);
+
+        //metodo para comprobar si una valor existe dentro de una coleccion de datos 
+        console.log(set2.has(true));
+        console.log(set2.has(19));
+
+        //limpiar un set 
+        set.clear();
+        console.log(set);
+    </script>
+
+    <h1>MAPS</h1>
+    <script>
+        //Un mapa contiene pares clave-valor donde las claves pueden ser cualquier tipo de datos. Es un objeto iterador
+        let mapa = new Map();
+
+        //agregar valores 
+        mapa.set("nombre","Luisa");
+        mapa.set("Apeliido","Alarcon");
+        mapa.set("Edad",23);
+
+        console.log(mapa);
+
+        //obtener cantidad de elementos 
+        console.log(mapa.size);
+
+        //metodo para saber si una llave existe o no 
+        console.log(mapa.has("correo"));
+
+        //si queremos mandar a la consola el valor de una llave
+        console.log(mapa.get("nombre"));
+
+        //NOTA: SET (ESTABLECER), GET(OBTENER)
+
+        //sobreescribir
+        mapa.set("nombre", "Luisa Fernanda");
+        console.log(mapa.get("nombre"));
+
+        //eliminar elementos de una coleccion
+        mapa.delete("Apeliido");
+        console.log(mapa);
+
+        //con map podemos generar llaves que no sean cadenas de texto, ej pueden ser un null, un undefined etc..
+        //aunque no es como muy util 
+        mapa.set(19,"Diecinueve");
+        mapa.set(false,"Falso");
+        mapa.set({},{});
+
+        //recorrer una coleccion
+        console.log("RECORRER FOR OF"); 
+        for(item of mapa){
+            console.log(item);
+        }
+
+        console.log("RECORRER FOREACH"); 
+        mapa.forEach(item=>console.log(item));
+
+        console.log("RECORRER FOR OF DESTRUCTURADO"); 
+        for(let [key, value] of mapa){
+            console.log(`llave ${key}, Valor ${value}`);
+        }
+
+        //crear un map y agregar valores ahi mismo
+
+        const mapa2= new Map([
+            ["Nombre", "Muñeca"],
+            ["Especie", "Canino"],
+            ["Edad", 7],
+            [null, "Nulo"]
+        ]);
+
+        console.log(mapa2);
+
+        //alamcenar llaves y valores en arrays diferentes
+        const LlavesMapa2 = [...mapa2.keys()];
+
+        const ValoresMapa2 = [...mapa2.values()];
+
+        console.log(LlavesMapa2);
+        console.log(ValoresMapa2);
+    </script>
+
+    <h1>WeakSets & WeakMaps</h1>
+    <script>
+
+        //WeakSets: 
+
+        //Cuando una de suspropiedades se vuelve una referencia nula o no definida en automatico se eliminan 
+
+        //no son elementos iterables
+        //no tienen la propiedad size y clear
+
+        //para almacenar valores en un WeakSets se debe hacer uno por uno con el metodo add y no en el mismo constructor
+
+        /* const ws = new WeakSet([1,2,3,3, true, false, false, {},{}, "hola", "HOLA", "hola"]); */ //esto da error
+
+        const ws = new WeakSet();
+        
+        /* ws.add(1); */ //Esto dara error
+
+        //estos elementos solo aceptan referencia debiles, es decir, objetos 
+
+        let valor1 = {"valor1": 1};
+        let valor2 = {"valor2": 2};
+        let valor3 = {"valor3": 3};
+
+        ws.add(valor1);
+        ws.add(valor2);
+
+        console.log(ws);
+
+        console.log(ws.has(valor3));
+        console.log(ws.has(valor1));
+
+        //no se puede eliminar todas las referencias, solo una a la vez
+        ws.delete(valor1);
+        console.log(ws);
+
+        ws.add(valor1);
+        ws.add(valor3);
+        console.log(ws);
+
+        /* setInterval(()=>console.log(ws),1000);
+
+        //podemos ver como se limpia automaticamente 
+        setTimeout(()=>{
+            valor1 = null;
+            valor2 = null;
+            valor3 = null;
+        }, 5000); */
+        
+
+        //WeakMaps:
+
+        /* const mapa3= new WeakMap([
+            ["Nombre", "Muñeca"],
+            ["Especie", "Canino"],
+            ["Edad", 7],
+            [null, "Nulo"]
+        ]); */ //ESTO DA ERROR 
+
+        //para almacenar valores en un WeakMaps se debe hacer uno por uno con el metodo add y no en el mismo constructor
+        const mapa3 = new WeakMap();
+
+        let llave1 = {};
+        let llave2 = {};
+        let llave3 = {};
+
+        mapa3.set(llave1, 1);
+        mapa3.set(llave2, 2);
+
+        console.log(mapa3);
+
+        //validar si existe o no la referencia
+        console.log(mapa3.has(llave1));
+        console.log(mapa3.has(llave3));
+
+        //obtener valor
+        console.log(mapa3.get(llave1));
+        console.log(mapa3.get(llave3));
+
+        //eliminar referencia solo se puede una por una 
+        mapa3.delete(llave2);
+        console.log(mapa3);
+
+        mapa3.set(llave1, 1);
+        mapa3.set(llave2, 2);
+        mapa3.set(llave3, 3);
+
+        //limpieza automatica
+       /*  setInterval(()=>{
+            console.log(mapa3);
+        }, 1000);
+
+        setTimeout(()=>{
+            llave1 = null;
+            llave2 = null;
+            llave3 = null;
+        }, 5000); */
+    </script>
+
+    <h1>Iterables & Iterators</h1>
+    <script>
+        //iteracion es como una vuelta en el recorrido de un ciclo
+
+        //un dato iterable es un dato que se puede recorrer (strings, arrays, nodos del DOM etc.)
+
+        //iterador es el macnismo que esta recorriendo los elementos
+
+        const iterable = [1,2,3,4,5];
+        /* const iterable = new Set([1,1,2,2,3,3,4,4,5,5,6,6]);
+        const iterable = "HOLA MUNDO" */
+
+        //interface de js del iterador, el iterador del iterable 
+
+        //para acceder al iterable del iterador, lo hacemos mediante symbol.iterator
+        const iterador= iterable[Symbol.iterator]();
+
+        console.log(iterable);
+        console.log(iterador);
+        //
+        /* console.log(iterador.next());
+        console.log(iterador.next());
+        console.log(iterador.next());
+        console.log(iterador.next());
+        console.log(iterador.next());
+        console.log(iterador.next()); */
+
+        //otra manera es con un ciclo 
+        let next = iterador.next();
+
+        while(!next.done){
+            console.log(next.value);
+            //esto es para que continue con el siguiente valor o se quedara siempre con el primero
+            next= iterador.next();
+        }
+        
+
+    </script>
+</body>
+</html>
