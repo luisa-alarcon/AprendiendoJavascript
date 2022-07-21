@@ -324,8 +324,253 @@
             //esto es para que continue con el siguiente valor o se quedara siempre con el primero
             next= iterador.next();
         }
+    </script>
+
+    <h1>Generators</h1>
+    <script>
+        //Una funcion que nos permite trabajar de una manera mas amigable con la interface de los iteradores en un elemento iterable
+
+        //convierte el codigo de una funcion en iterable
+
+        //para que js sepa que sera una funcion de tipo generador se agrega un * al lado de la palabra function
+        function* iterable1(){
+            yield "Hola"; 
+            console.log("Hola Consola");
+            yield "Hola 2";
+            console.log("seguimos con mas instrucciones de nuestro codigo");
+            yield "Hola 3";
+            yield "Hola 4";
+        }
+
+        let iterador1 = iterable1(); 
+        /* console.log(iterador1.next());
+        console.log(iterador1.next());
+        console.log(iterador1.next());
+        console.log(iterador1.next());
+        console.log(iterador1.next()); */
+
+        for(let y of iterador1){
+            console.log(y);
+        }
+
+        const array = [...iterable1()];
+        console.log(array);
+        
+        /* function cuadrado(valor){
+            setTimeout(()=>{
+                return console.log({valor, resultado:valor * valor})
+            }, Math.random * 1000)
+
+            
+        } */
+
+        function* generador(){
+            console.log("Inicia generador");
+            yield cuadrado(0);
+            yield cuadrado(1);
+            yield cuadrado(2);
+            yield cuadrado(3);
+            yield cuadrado(4);
+            yield cuadrado(5);
+            console.log("Termina generador");
+        }
+
+        let gen = generador();
+
+        for(let y of gen){
+            console.log(y);
+        } 
+    </script>
+
+    <h1>Proxies</h1>
+    <script>
+        const persona1 = {
+            nombre: "",
+            apellido:"",
+            edad:0
+        }
+
+        //aqui se manejan todas la validaciones necesarias
+        const manejador = {
+            //el set recibe, el objeto, las propiedades a evaluar y el valor de cada una d esas propiedades
+            set(obj,prop,valor){
+                //creamos una validacion para que no se puedan agregar valor a propiedades que no estan en el objeto
+                //los hacemos mediante el metodo object.keys(que nos trae todas las llaves del objeto) y el index of que trae un uno si encuentra alguna coincidencia
+                if(Object.keys(obj).indexOf(prop)===-1){
+                    return console.error(`La propiedad ${prop} no existe en el objeto persona`)
+                }
+                obj[prop]=valor;
+            }
+        }
+
+        
+        //el proxy recibe el objeto, el manejador 
+        const Luisa = new Proxy(persona1, manejador);
+        Luisa.nombre = "Luisa";
+        Luisa.apellido = "Castañeda";
+        Luisa.edad = 23;
+        Luisa.mascotas = "perros y gatos";  
+        console.log(Luisa);
+        console.log(persona1);
+    </script>
+
+    <h1>Propiedades dinamicas de los objetos</h1>
+    <script>
+        let aleatorio = Math.round(Math.random()*100+5);
+        const objUsuarios = {
+            [`id_${aleatorio}`]: "valor aleatorio"
+        };
+         console.log(objUsuarios);
+
+         const usuarios = ["Luisa", "stella", "Daniela", "Muñeca"];
+
+         usuarios.forEach((usuario,index)=>objUsuarios[`id_${index}`] = usuario);
+         console.log(objUsuarios);
+    </script>
+    <h1>THIS</h1>
+    <script>
+        console.log(this);
+        console.log(window);
+        console.log(this === window);
+        this.nombre = "Contexto Global";
+        console.log(this.nombre);
+        function imprimir() {
+          console.log(this.nombre);
+        }
+        imprimir();
+        const obj = {
+          nombre: "Contexto Objeto",
+          imprimir: function () {
+            console.log(this.nombre);
+          }
+        }
+        obj.imprimir();
+        const obj2 = {
+          nombre: "Contexto Objeto 2",
+          imprimir
+        }
+        obj2.imprimir();
+        const obj3 = {
+          nombre: "Contexto Objeto 3",
+          imprimir: () => {
+            console.log(this.nombre);
+          }
+        }
+
+        obj3.imprimir();
+
+
+        function Persona(nombre) {
+
+          this.nombre = nombre;
+          return console.log(this.nombre);
+          
+        }
+        let jon3 = new Persona("Jon");
         
 
+      
+        function Persona2(nombre) {
+
+          this.nombre = nombre;
+          return function () {
+          console.log(this.nombre);
+          }
+          
+        }
+        let Luisa2 = new Persona2("Jon");
+        Luisa2();
+
+        function Persona3(nombre) {
+
+            this.nombre = nombre;
+            return () => console.log(this.nombre);
+
+            }
+        let jon2 = new Persona3("Jon");
+        jon2();
+
+
+        /*En los objetos las funciones están guardadas en la variable imprimir, y esa variable o nombre del método está definido al mismo nivel 
+        que la propiedad nombre del objeto, mientras que en la función Persona el return function(){console.log() } sé ejecuta dentro del nivel 
+        de Persona por debajo del this.nombre no al mismo nivel, para ponerlo al mismo nivel habría que haberla guardado en un this.imprimir 
+        después del this.nombre.
+
+        Entonces:
+        EN EL EJEMPLO DE LOS OBJETOS:
+        1) si obj.imprimir es una función normal, al ser ejecutada (al mismo nivel de obj.nombre) crea y comparte scope con la propiedad nombre.
+        2) si obj.imprimir es una arrow, al no crear scope para compartir con nombre, SUBE AL SIGUIENTE SCOPE, en este caso global.
+        
+        EN EL EJEMPLO DE LA FUNCION:
+        1)  Return function() { console.log(this.nombre) } esa función se ejecuta por debajo del nivel del this.nombre de Persona, 
+        no al mismo nivel, como pasaba en los objetos, al ser una función normal genera su scope dentro del scope de Persona pero 
+        por debajo del scope donde esta el this.nombre de Persona, es decir, no comparte contexto como en los objetos 
+        (donde generaba el scope a la altura del this.nombre del objeto), y al no encontrar ese this.nombre en su contexto, 
+        sale al global.
+        2) Cuando lo convertimos en una arrow, de la misma manera es ejecutado por debajo del nivel del this de Persona, pero en 
+        este caso no genera un scope y SUBE AL SIGUIENTE SCOPE, que es el de Persona, y ahí sí encuentra un this.nombre definido.*/
+    </script>
+
+    <h1>call, apply, bind</h1>
+    <script>
+        console.log(this);
+        this.lugar = "Contexto Global";
+        function saludar() {
+        console.log(`${this.lugar}`);
+        }
+        saludar();
+        const obj5 = {
+            lugar: "Contexto Objeto"
+        }
+        saludar.call(obj5);
+
+        //aply es igual que call 
+        console.log(this);
+        this.lugar = "Contexto Global";
+        function saludar2(saludo, aQuien) {
+        console.log(`${saludo} ${aQuien} desde el ${this.lugar}`);
+        }
+        saludar2();
+        
+        const obj6 = {
+            lugar: "Contexto Objeto"
+        }
+
+        saludar2.call(obj6, "Hola", "Jon");
+        saludar2.call(null, "Hola", "Jon");
+        saludar2.call(this, "Hola", "Jon");
+        saludar2.apply(obj6, ["Adios", "MirCha"]);
+        saludar2.apply(null, ["Adios", "MirCha"]);
+        saludar2.apply(this, ["Adios", "MirCha"]);
+
+        const personas = {
+            nombre: "Jon",
+            saludar: function () {
+                console.log(`Hola ${this.nombre}`)
+            }   
+        }
+        personas.saludar();
+
+        const personas2 = {
+            nombre: "Jon",
+            saludar:() => {
+                console.log(`Hola ${this.nombres}`)
+            }   
+        }
+        personas2.saludar();
+
+        const otraPersona ={
+            saludar: personas.saludar
+        }
+
+        otraPersona.saludar();
+
+
+        const otraPersona2 ={
+            saludar: personas.saludar.bind(personas)
+        }
+
+        otraPersona2.saludar();
     </script>
 </body>
 </html>
