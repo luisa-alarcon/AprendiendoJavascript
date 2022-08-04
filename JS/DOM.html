@@ -4,20 +4,184 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>WEBS APIS</title>
+    <style>
+        :root{
+            --yellow-color:#F7DF1E;
+            --dark-color: #222; 
+        }
+
+        .card{
+            display: inline-block;
+            background-color: var(--dark-color);
+            color: var(--yellow-color);
+        }
+
+        .card figcaption{
+            padding: 1rem;
+        }
+
+        .rotate-45{
+            transform: rotate(45deg);
+        }
+
+        .rotate-135{
+            transform: rotate(135deg);
+        }
+
+        .opacity-80{
+            opacity: .8;
+        }
+
+        .sepia{
+            filter: sepia(1);
+        }
+
+        .toogle{
+            padding: 16px;
+            background-color: antiquewhite;
+            color: #222;
+        }
+
+        .darkmode{
+            background-color: #222;
+        }
+
+        .cards{
+            border: 5px solid #222;
+            border-radius: 20px;
+            padding: 10px;
+            margin:20px;
+        }
+
+        .eventos-flujo div{
+            padding: 4rem;
+            font-size: 2rem;
+            text-align: center;
+            color: #222;
+        }
+
+        .uno{
+            background-color: yellow;
+        }
+
+        .dos{
+            background-color: gold;
+        }
+
+        .tres{
+            background-color:lightyellow ;
+        }
+    </style>
 </head>
 <body>
-    <h1>WEBS APIS</h1>
-    <script>
-        /* En js es una serie de objetos y mcanismos que tiene el lenguaje 
-        implementado en ciertas areas para poder interacturar con todo lo 
-        que tiene que ver con el navegador */
+    <div class="dark">
+        <h1>WEBS APIS</h1>
+        <button onclick="myFunction2()">DarkMode</button>
 
-        /* El DOM (Document Object Model en español Modelo de Objetos del
-         Documento) es una API definida para representar e interactuar con 
-         cualquier documento HTML o XML */
+        <ul>
+            <li><a href="#">seccion 0</a></li>
+            <li><a href="#">seccion 0.5</a></li>
+        </ul>
 
-        /* BOM: no se considera api estandar,     */
-    </script>
+        <p id="que-es">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+            Exercitationem in vitae assumenda, nam dolorem culpa consequuntur 
+            nobis, saepe eaque voluptatum accusantium tempore. Nostrum 
+            ad unde maiores quisquam sit sequi porro.
+        </p>
+        <nav id="name">
+            <ul>
+                <li><a href="#">seccion 1</a></li>
+                <li><a href="#">seccion 2</a></li>
+                <li><a href="#">seccion 3</a></li>
+                <li><a href="#">seccion 4</a></li>
+                <li><a href="#">seccion 5</a></li>
+            </ul>
+        </nav>
+
+        <input type="text" name="nombre" id="" placeholder="nombre">
+
+        <a style="background-color: #F7DF1E; color:#222" class="link-dom" href="DOM.html" data-id="1" data-description ="Document Object Model">DOM</a>
+
+        <section class="cards">
+            <figure class="card">
+                <img src="https://placeimg.com/200/200/tech" alt="Tech">
+                <figcaption>Tech</figcaption>
+            </figure>
+            <figure class="card">
+                <img src="https://placeimg.com/200/200/animals" alt="Animals">
+                <figcaption>Animals</figcaption>
+            </figure>
+            <figure class="card">
+                <img src="https://placeimg.com/200/200/people" alt="People">
+                <figcaption>People</figcaption>
+            </figure>
+            <figure class="card">
+                <img src="https://placeimg.com/200/200/arch" alt="Arch">
+                <figcaption>Arch</figcaption>
+            </figure>
+            <figure class="card">
+                <img src="https://placeimg.com/200/200/nature" alt="Nature">
+                <figcaption>Nature</figcaption>
+            </figure>
+        </section>
+        
+        <!-- ----------TEMPLATES HTML---------------- -->
+        <template id="template-card">
+            <figure class="card">
+                <img>
+                <figcaption>
+
+                </figcaption>
+            </figure>
+        </template>
+
+        <button onclick="myFunction()">pruebalo</button>
+        <div class="toggle">
+            Estes es un elemento div 
+        </div>
+    </div>
+
+    <div class="event">
+        <h3>Eventos en Javascript</h3>
+        <button onclick="alert(holaMundo())">Evento con atributo HTML </button>
+    </div>
+    <br>
+    <br>
+    <button id="evento-semantico">Evento con manejador semantico</button>
+    <br>
+    <br>
+    <button id="evento-multiple">Evento con manejador Multiple</button>
+    <br>
+    <br>
+    <button id="evento-remover">Removiendo eventos con manejadores multiples</button>
+    <br>
+    <br>
+    <h4>Flujo de eventos</h4>
+    <section class="eventos-flujo">
+        <div class="uno">
+            1
+            <div class="dos">
+                2
+                <div class="tres">
+                    3
+                    <a href="https://www.youtube.com/">Youtube</a>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
+<script>
+    /* En js es una serie de objetos y mcanismos que tiene el lenguaje 
+    implementado en ciertas areas para poder interacturar con todo lo 
+    que tiene que ver con el navegador */
+
+    /* El DOM (Document Object Model en español Modelo de Objetos del
+     Documento) es una API definida para representar e interactuar con 
+     cualquier documento HTML o XML */
+
+    /* BOM: no se considera api estandar  */
+</script>
+<script src="DOM.js"></script>
 </html>
